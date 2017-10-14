@@ -5,8 +5,6 @@ library spotify;
 
 import 'dart:async';
 import 'dart:convert';
-import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:http/http.dart' as http;
 import 'package:owl/annotation/json.dart';
@@ -21,17 +19,19 @@ part 'src/models/followers.dart';
 part 'src/models/image.dart';
 part 'src/models/album.dart';
 part 'src/models/track.dart';
+part 'src/models/playlist.dart';
+part 'src/models/user.dart';
 part 'src/models/audio_feature.dart';
 
 part 'src/endpoints/endpoint_base.dart';
 part 'src/endpoints/artists.dart';
 part 'src/endpoints/albums.dart';
 part 'src/endpoints/tracks.dart';
+part 'src/endpoints/playlists.dart';
+part 'src/endpoints/users.dart';
 part 'src/endpoints/audio_features.dart';
 
 part 'src/spotify_credentials.dart';
 
 part 'src/spotify_base.dart';
 part 'src/spotify_io.dart';
-
-part 'src/spotify_mock.dart';

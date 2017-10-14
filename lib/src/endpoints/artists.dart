@@ -5,7 +5,7 @@ part of spotify;
 
 class Artists extends EndpointBase {
   @override
-  String get _path => 'v1/artists';
+  String get _path => 'v1/albums';
 
   Artists(SpotifyApiBase api) : super(api);
 
