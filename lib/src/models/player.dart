@@ -5,10 +5,7 @@ part of spotify.models;
 
 @JsonSerializable(createToJson: false)
 class Player extends Object {
-  Player() {
-    is_playing = false;
-  }
-
+  Player() {}
   factory Player.fromJson(Map<String, dynamic> json) => _$PlayerFromJson(json);
 
   /// Unix Millisecond Timestamp when data was fetched
@@ -34,7 +31,6 @@ class Player extends Object {
 @JsonSerializable(createToJson: false)
 class PlayerContext extends Object {
   PlayerContext() {}
-
   factory PlayerContext.fromJson(Map<String, dynamic> json) =>
       _$PlayerContextFromJson(json);
 
@@ -50,3 +46,4 @@ class PlayerContext extends Object {
   /// The uri of the context.
   String uri;
 }
+
