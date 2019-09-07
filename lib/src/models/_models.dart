@@ -17,4 +17,3 @@ part 'player.dart';
 part 'playlist.dart';
 part 'track.dart';
 part 'user.dart';
-part 'category.dart';
