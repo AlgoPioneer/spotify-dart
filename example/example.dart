@@ -96,8 +96,5 @@ main() async {
       }
     });
   });
-
-  var relatedArtists = await spotify.artists.relatedArtists('0OdUWJ0sBjDrqHygGUXeCF');
-  print('related Artists: ${relatedArtists.length}');
   exit(0);
 }

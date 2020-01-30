@@ -4,8 +4,6 @@ import 'package:json_annotation/json_annotation.dart';
 
 part '_models.g.dart';
 
-part 'external_objects.dart';
-
 part 'album.dart';
 part 'artist.dart';
 part 'audio_feature.dart';
@@ -17,4 +15,3 @@ part 'player.dart';
 part 'playlist.dart';
 part 'track.dart';
 part 'user.dart';
-part 'category.dart';
