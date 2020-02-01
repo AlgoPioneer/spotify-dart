@@ -1,7 +1,30 @@
 part of spotify;
 
-class SpotifyApiMock extends SpotifyApiBase{
-  SpotifyApiMock(SpotifyApiCredentials credentials) : super.fromClient(MockClient());
+class SpotifyApiMock extends SpotifyApiBase {
+  SpotifyApiMock(SpotifyApiCredentials credentials) : super(credentials);
+
+  @override
+  Future<String> _getImpl(String url, Map<String, String> headers) async {
+    var client = new MockClient();
+    var response = await client.get(url, headers: headers);
+
+    return utf8.decode(response.bodyBytes);
+  }
+
+  @override
+  Future<String> _postImpl(
+      String url, Map<String, String> headers, dynamic body) async {
+    var client = new MockClient();
+    var response = await client.post(url, headers: headers, body: body);
+    return utf8.decode(response.bodyBytes);
+  }
+
+  @override
+  Future<String> _putImpl(String url, Map<String, String> headers, body) async {
+    var client = new MockClient();
+    var response = await client.put(url, headers: headers, body: body);
+    return utf8.decode(response.bodyBytes);
+  }
 }
 
 class MockClient implements http.BaseClient {
