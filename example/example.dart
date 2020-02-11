@@ -10,7 +10,7 @@ main() async {
   var keyMap = json.decode(keyJson);
 
   var credentials = new SpotifyApiCredentials(keyMap['id'], keyMap['secret']);
-  var spotify = SpotifyApi(credentials);
+  var spotify = new SpotifyApi(credentials);
 
   print("Artists:");
   var artists = await spotify.artists.list(['0OdUWJ0sBjDrqHygGUXeCF']);
@@ -96,8 +96,5 @@ main() async {
       }
     });
   });
-
-  var relatedArtists = await spotify.artists.relatedArtists('0OdUWJ0sBjDrqHygGUXeCF');
-  print('related Artists: ${relatedArtists.length}');
   exit(0);
 }

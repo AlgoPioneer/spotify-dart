@@ -10,9 +10,3 @@ pubspec.lock
 doc/api/
 
 .apikeys
-
-# IntelliJ related
-*.iml
-*.ipr
-*.iws
-.idea/
