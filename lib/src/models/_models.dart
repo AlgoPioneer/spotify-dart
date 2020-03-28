@@ -15,7 +15,6 @@ part 'image.dart';
 part 'paging.dart';
 part 'player.dart';
 part 'playlist.dart';
-part 'recommendations.dart';
 part 'track.dart';
 part 'user.dart';
 part 'category.dart';
