@@ -3,7 +3,7 @@
 
 import 'dart:io';
 import 'dart:convert';
-import 'package:spotify/spotify.dart';
+import 'package:spotify/spotify_io.dart';
 
 void main() async {
   var keyJson = await File('example/.apikeys').readAsString();
@@ -99,6 +99,14 @@ void main() async {
 
   var relatedArtists =
       await spotify.artists.relatedArtists('0OdUWJ0sBjDrqHygGUXeCF');
-  print('related Artists: ${relatedArtists.length}');
+  print('\nRelated Artists: ${relatedArtists.length}');
+
+  print('\nCredentials:');
+  credentials = await spotify.getCredentials();
+  print('Access Token: ${credentials.accessToken}');
+  print('Refresh Token: ${credentials.refreshToken}');
+  print('Credentials Expired: ${credentials.isExpired}');
+  print('Scopes: ${credentials.scopes}');
+
   exit(0);
 }
