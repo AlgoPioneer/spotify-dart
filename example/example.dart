@@ -99,14 +99,6 @@ void main() async {
 
   var relatedArtists =
       await spotify.artists.relatedArtists('0OdUWJ0sBjDrqHygGUXeCF');
-  print('\nRelated Artists: ${relatedArtists.length}');
-
-  print('\nCredentials:');
-  credentials = await spotify.getCredentials();
-  print('Access Token: ${credentials.accessToken}');
-  print('Refresh Token: ${credentials.refreshToken}');
-  print('Credentials Expired: ${credentials.isExpired}');
-  print('Scopes: ${credentials.scopes}');
-
+  print('related Artists: ${relatedArtists.length}');
   exit(0);
 }
