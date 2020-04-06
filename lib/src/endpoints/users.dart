@@ -20,7 +20,7 @@ class Users extends EndpointPaging {
     var jsonString = await _api._get('v1/me/player/currently-playing');
 
     if (jsonString.isEmpty) {
-      return Player();
+      return new Player();
     }
 
     var map = json.decode(jsonString);
@@ -31,27 +31,16 @@ class Users extends EndpointPaging {
     var jsonString = await _api._get('v1/me/player/recently-played');
     var map = json.decode(jsonString);
 
-    var items = map['items'] as Iterable<dynamic>;
-    return items.map((item) => Track.fromJson(item['track']));
+    var items = map["items"] as Iterable<dynamic>;
+    return items.map((item) => Track.fromJson(item["track"]));
   }
 
   Future<Iterable<Track>> topTracks() async {
     var jsonString = await _api._get('v1/me/top/tracks');
     var map = json.decode(jsonString);
 
-    var items = map['items'] as Iterable<dynamic>;
+    var items = map["items"] as Iterable<dynamic>;
     return items.map((item) => Track.fromJson(item));
-  }
-
-  Future<Iterable<Device>> devices() async {
-    return _api._get('v1/me/player/devices').then(_parseDeviceJson);
-  }
-
-  Iterable<Device> _parseDeviceJson(String jsonString) {
-    var map = json.decode(jsonString);
-
-    var items = map['devices'] as Iterable<dynamic>;
-    return items.map((item) => Device.fromJson(item));
   }
 
   Future<UserPublic> get(String userId) async {
