@@ -3,10 +3,7 @@ import 'package:test/test.dart';
 import 'package:spotify/spotify.dart';
 
 Future main() async {
-  var spotify = SpotifyApiMock(SpotifyApiCredentials(
-    'clientId',
-    'clientSecret',
-  ));
+  var spotify = SpotifyApiMock(SpotifyApiCredentials('', ''));
 
   group('Albums', () {
     test('get', () async {
@@ -80,21 +77,17 @@ Future main() async {
 
       expect(result.item.name, 'So Voce');
     });
-  });
 
-  group('Auth', () {
-    test('getCredentials', () async {
-      var result = await spotify.getCredentials();
-
-      expect(result.clientId, 'clientId');
-      expect(result.clientSecret, 'clientSecret');
-      expect(result.accessToken, 'accessToken');
-      expect(result.refreshToken, 'refreshToken');
-      expect(result.tokenEndpoint.path, 'tokenEndpoint.com');
-      expect(result.scopes.length, 2);
-      expect(result.expiration.millisecondsSinceEpoch, 8000);
-      expect(result.canRefresh, true);
-      expect(result.isExpired, true);
+    test('devices', () async {
+      var result = await spotify.users.devices();
+      expect(result.length, 1);
+      expect(result.first.id, '5fbb3ba6aa454b5534c4ba43a8c7e8e45a63ad0e');
+      expect(result.first.isActive, true);
+      expect(result.first.isRestricted, true);
+      expect(result.first.isPrivateSession, true);
+      expect(result.first.name, 'My fridge');
+      expect(result.first.type, DeviceType.Computer);
+      expect(result.first.volumePercent, 100);
     });
   });
 }
