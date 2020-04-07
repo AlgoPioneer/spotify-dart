@@ -69,7 +69,7 @@ class Playlist extends Object implements PlaylistSimple {
   TracksLink tracksLink;
 
   /// Information about the tracks of the playlist.
-  Paging<Track> tracks;
+  List<Track> tracks;
 
   /// The object type: "playlist"
   @override
