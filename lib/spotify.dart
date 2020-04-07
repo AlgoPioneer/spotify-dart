@@ -24,6 +24,7 @@ part 'src/endpoints/artists.dart';
 part 'src/endpoints/albums.dart';
 part 'src/endpoints/tracks.dart';
 part 'src/endpoints/playlists.dart';
+part 'src/endpoints/recommendations.dart';
 part 'src/endpoints/users.dart';
 part 'src/endpoints/search.dart';
 part 'src/endpoints/audio_features.dart';
