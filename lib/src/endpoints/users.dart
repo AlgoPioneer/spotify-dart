@@ -7,26 +7,52 @@ class Users extends EndpointPaging {
   @override
   String get _path => 'v1/users';
 
-  Me _me;
+  Users(SpotifyApiBase api) : super(api);
 
-  Users(SpotifyApiBase api, Me me) : super(api){ 
-    _me = me;
+  Future<User> me() async {
+    var jsonString = await _api._get('v1/me');
+    var map = json.decode(jsonString);
+
+    return User.fromJson(map);
   }
 
-  @Deprecated('Use "SpotifyApi.me.get()"')
-  Future<User> me() => _me.get();
+  Future<Player> currentlyPlaying() async {
+    var jsonString = await _api._get('v1/me/player/currently-playing');
 
-  @Deprecated('Use "SpotifyApi.me.currentlyPlaying()"')
-  Future<Player> currentlyPlaying() => _me.currentlyPlaying();
+    if (jsonString.isEmpty) {
+      return Player();
+    }
 
-  @Deprecated('Use "SpotifyApi.me.recentlyPlayed()"')
-  Future<Iterable<Track>> recentlyPlayed() => _me.recentlyPlayed();
+    var map = json.decode(jsonString);
+    return Player.fromJson(map);
+  }
 
-  @Deprecated('Use "SpotifyApi.me.topTracks()"')
-  Future<Iterable<Track>> topTracks() => _me.topTracks();
+  Future<Iterable<Track>> recentlyPlayed() async {
+    var jsonString = await _api._get('v1/me/player/recently-played');
+    var map = json.decode(jsonString);
 
-  @Deprecated('Use "SpotifyApi.me.devices()"')
-  Future<Iterable<Device>> devices() async => _me.devices();
+    var items = map['items'] as Iterable<dynamic>;
+    return items.map((item) => Track.fromJson(item['track']));
+  }
+
+  Future<Iterable<Track>> topTracks() async {
+    var jsonString = await _api._get('v1/me/top/tracks');
+    var map = json.decode(jsonString);
+
+    var items = map['items'] as Iterable<dynamic>;
+    return items.map((item) => Track.fromJson(item));
+  }
+
+  Future<Iterable<Device>> devices() async {
+    return _api._get('v1/me/player/devices').then(_parseDeviceJson);
+  }
+
+  Iterable<Device> _parseDeviceJson(String jsonString) {
+    var map = json.decode(jsonString);
+
+    var items = map['devices'] as Iterable<dynamic>;
+    return items.map((item) => Device.fromJson(item));
+  }
 
   Future<UserPublic> get(String userId) async {
     var jsonString = await _api._get('$_path/$userId');
