@@ -6,7 +6,7 @@ part of spotify.models;
 @JsonSerializable(createToJson: false)
 class Player extends Object {
   Player() {
-    isPlaying = false;
+    is_playing = false;
   }
 
   factory Player.fromJson(Map<String, dynamic> json) => _$PlayerFromJson(json);
@@ -25,19 +25,10 @@ class Player extends Object {
 
   /// The object type of the currently playing item. Can be one of track,
   /// episode, ad or unknown.
-  @JsonKey(name: 'currently_playing_type')
-  CurrentlyPlayingType currentlyPlayingType;
+  String currently_playing_type;
 
   /// If something is currently playing.
-  @JsonKey(name: 'is_playing')
-  bool isPlaying;
-
-  /// The shuffle state. [true] if shuffle is turned on, [false] if its turned off
-  @JsonKey(name: 'shuffle_state')
-  bool isShuffling;
-
-  @JsonKey(name: 'repeat_state')
-  RepeatState repeatState;
+  bool is_playing;
 }
 
 @JsonSerializable(createToJson: false)
@@ -59,7 +50,3 @@ class PlayerContext extends Object {
   /// The uri of the context.
   String uri;
 }
-
-enum RepeatState { off, context, track }
-
-enum CurrentlyPlayingType { track, episode, ad, unknown }
