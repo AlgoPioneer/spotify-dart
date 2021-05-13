@@ -14,9 +14,6 @@ class SpotifyApi extends SpotifyApiBase {
       oauth2.AuthorizationCodeGrant grant, String responseUri)
       : super.fromAuthCodeGrant(grant, responseUri);
 
-  SpotifyApi.withAccessToken(String accessToken)
-      : super._withAccessToken(accessToken);
-
   static oauth2.AuthorizationCodeGrant authorizationCodeGrant(
       SpotifyApiCredentials credentials, {Function(SpotifyApiCredentials) onCredentialsRefreshed}) {
     return SpotifyApiBase.authorizationCodeGrant(credentials, http.Client(), onCredentialsRefreshed);
