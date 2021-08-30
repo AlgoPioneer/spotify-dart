@@ -1,13 +1,5 @@
 # Changelog
 
-## 0.6.0
-
-- fix following artist
-- add user saved shows endpoint
-- fix episode listing
-- clean up album models
-- add null safety
-
 ## 0.5.1
 
 - add createPlaylist optional parameters

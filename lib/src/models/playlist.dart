@@ -16,7 +16,6 @@ class Playlist extends Object implements PlaylistSimple {
 
   /// The playlist description. Only returned for modified, verified playlists,
   /// otherwise [null].
-  @override
   String? description;
 
   /// Known external URLs for this playlist.
@@ -90,10 +89,6 @@ class PlaylistSimple extends Object {
 
   /// true if the owner allows other users to modify the playlist.
   bool? collaborative;
-
-  /// The playlist description. Only returned for modified, verified playlists,
-  /// otherwise [null].
-  String? description;
 
   /// Known external URLs for this playlist.
   @JsonKey(name: 'external_urls')
