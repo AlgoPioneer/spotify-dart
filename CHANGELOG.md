@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.7.0
+
+- create client with access token only
+- add description field to playlist model
+
+## 0.6.0
+
+- fix following artist
+- add user saved shows endpoint
+- fix episode listing
+- clean up album models
+- add null safety
+
 ## 0.5.1
 
 - add createPlaylist optional parameters
