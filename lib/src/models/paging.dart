@@ -5,11 +5,7 @@ part of spotify.models;
 
 typedef ParserFunction<T> = T Function(dynamic object);
 
-Iterable<dynamic> itemsNativeFromJson(List<dynamic> json) {
-  json.removeWhere((element) => element == null);
-  return json;
-}
-
+Iterable<dynamic> itemsNativeFromJson(List<dynamic> json) => json;
 List<Map> itemsNativeToJson(Iterable<dynamic>? items) =>
     (items == null) ? [] : List.from(items);
 
@@ -33,6 +29,8 @@ class BasePaging<T> extends Object {
 
   /// URL to the next page of items. ([null] if none)
   String? next;
+
+
 }
 
 @JsonSerializable(createToJson: false)

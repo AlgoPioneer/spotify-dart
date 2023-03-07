@@ -61,7 +61,6 @@ class SearchType {
     SearchType.playlist,
     SearchType.track,
     SearchType.show,
-    SearchType.episode,
-    SearchType.show,
+    SearchType.episode
   ];
 }
