@@ -56,14 +56,12 @@ void main() async {
   });
 
   print("\nSearching for \'Metallica\':");
-  var search = await spotify.search
-      .get('metallica')
-      .first(2)
-      .catchError((err) => print((err as SpotifyException).message));
-  if (search == null) {
-    return;
-  }
+  var search = await spotify.search.get('metallica').first(2);
+
   search.forEach((pages) {
+    if (pages.items == null) {
+      print('Empty items');
+    }
     pages.items!.forEach((item) {
       if (item is PlaylistSimple) {
         print('Playlist: \n'
@@ -87,9 +85,10 @@ void main() async {
             'href: ${item.href}\n'
             'type: ${item.type}\n'
             'uri: ${item.uri}\n'
+            'popularity: ${item.popularity}\n'
             '-------------------------------');
       }
-      if (item is TrackSimple) {
+      if (item is Track) {
         print('Track:\n'
             'id: ${item.id}\n'
             'name: ${item.name}\n'
@@ -102,6 +101,7 @@ void main() async {
             'discNumber: ${item.discNumber}\n'
             'trackNumber: ${item.trackNumber}\n'
             'explicit: ${item.explicit}\n'
+            'popularity: ${item.popularity}\n'
             '-------------------------------');
       }
       if (item is AlbumSimple) {
