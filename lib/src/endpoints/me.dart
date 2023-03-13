@@ -63,7 +63,7 @@ class Me extends MeEndpointBase {
 
   /// Get the object currently being played on the user’s Spotify account.
   @Deprecated('Use [spotify.player.currentlyPlaying()]')
-  Future<PlaybackState> currentlyPlaying() async => _player.currentlyPlaying();
+  Future<Player> currentlyPlaying() async => _player.currentlyPlaying();
 
   // Get the currently playing as well as the queued objects.
   @Deprecated('Use [spotify.player.queue()]')
@@ -97,11 +97,10 @@ class Me extends MeEndpointBase {
   /// Returns the current player state by making another request.
   /// See [player([String market])];
   @Deprecated('Use [spotify.player.shuffle()]')
-  Future<PlaybackState?> shuffle(bool state, [String? deviceId]) async =>
-      _player.shuffle(state, deviceId: deviceId);
+  Future<Player> shuffle(bool state, [String? deviceId]) async => _player.shuffle(state, deviceId);
 
   @Deprecated('Use [spotify.player.playbackState()]')
-  Future<PlaybackState> player([String? market]) async =>
+  Future<Player> player([String? market]) async =>
       _player.playbackState(market);
 
   /// Get the current user's top tracks.
@@ -198,6 +197,41 @@ class Me extends MeEndpointBase {
     assert(ids.isNotEmpty, 'No album ids were provided for checking');
     final jsonString =
         await _api._get('$_path/albums/contains?ids=${ids.join(",")}');
+    final result = List.castFrom<dynamic, bool>(json.decode(jsonString));
+
+    return Map.fromIterables(ids, result);
+  }
+
+  /// Returns the current user's saved episodes. Requires the `user-library-read`
+  /// scope.
+  Pages<EpisodeFull> savedEpisodes() {
+    return _getPages('$_path/episodes', 
+       (json) => EpisodeFull.fromJson(json['episode']));
+  }
+
+  /// Saves episodes for the current user. Requires the `user-library-modify`
+  /// scope.
+  /// [ids] - the ids of the episodes
+  Future<void> saveEpisodes(List<String> ids) async {
+    assert(ids.isNotEmpty, 'No episode ids were provided for saving');
+    await _api._put('$_path/episodes?' + _buildQuery({'ids': ids.join(',')}));
+  }
+
+  /// Removes episodes for the current user. Requires the `user-library-modify`
+  /// scope.
+  /// [ids] - the ids of the episodes
+  Future<void> removeEpisode(List<String> ids) async {
+    assert(ids.isNotEmpty, 'No episode ids were provided for removing');
+    await _api
+        ._delete('$_path/episodes?' + _buildQuery({'ids': ids.join(',')}));
+  }
+
+  /// Check if passed episode [ids] are saved by current user.
+  /// Returns the list of id's mapped with the response whether it has been saved
+  Future<Map<String, bool>> containsSavedEpisodes(List<String> ids) async {
+    assert(ids.isNotEmpty, 'No episode ids were provided for checking');
+    final jsonString = await _api._get(
+        '$_path/episodes/contains?' + _buildQuery({'ids': ids.join(',')}));
     final result = List.castFrom<dynamic, bool>(json.decode(jsonString));
 
     return Map.fromIterables(ids, result);
