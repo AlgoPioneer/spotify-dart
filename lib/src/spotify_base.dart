@@ -21,8 +21,6 @@ abstract class SpotifyApiBase {
   Tracks get tracks => _tracks;
   late Playlists _playlists;
   Playlists get playlists => _playlists;
-  late Episodes _episodes;
-  Episodes get episodes => _episodes;
   late RecommendationsEndpoint _recommendations;
   RecommendationsEndpoint get recommendations => _recommendations;
   late Users _users;
@@ -48,7 +46,6 @@ abstract class SpotifyApiBase {
     _albums = Albums(this);
     _browse = Browse(this);
     _tracks = Tracks(this);
-    _episodes = Episodes(this);
     _playlists = Playlists(this);
     _recommendations = RecommendationsEndpoint(this);
     _player = PlayerEndpoint(this);

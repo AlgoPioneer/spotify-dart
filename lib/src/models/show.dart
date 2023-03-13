@@ -59,8 +59,5 @@ class Show {
   /// The Spotify URI for the show.
   String? uri;
 
-  @JsonKey(name: 'total_episodes', defaultValue: 0)
-  int? totalEpisodes;
-
   factory Show.fromJson(Map<String, dynamic> json) => _$ShowFromJson(json);
 }
