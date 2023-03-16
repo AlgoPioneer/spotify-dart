@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:spotify/src/spotify_mock.dart';
+import 'spotify_mock.dart';
 import 'package:test/test.dart';
 import 'package:spotify/spotify.dart';
 
@@ -357,6 +357,8 @@ Future main() async {
       expect(result.isPlaying, true);
       expect(result.currentlyPlayingType, CurrentlyPlayingType.track);
       expect(result.repeatState, RepeatState.off);
+      expect(result.actions?.resuming, false);
+      expect(result.actions?.pausing, true);
     });
   });
 
