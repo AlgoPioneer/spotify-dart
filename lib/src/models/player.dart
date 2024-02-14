@@ -117,37 +117,13 @@ class Actions extends Object {
   bool? transferringPlayback;
 }
 
-abstract class StartOrResumeOptions extends Object {
-  Map<String, dynamic> toJson();
-}
-
 @JsonSerializable(createFactory: false)
-class StartWithContextOptions extends StartOrResumeOptions {
-
-  StartWithContextOptions({this.contextUri, this.offset});
-
+class StartOrResumeOptions extends Object {
   /// Optional. Spotify URI of the context to play. Valid contexts are albums,
   /// artists & playlists.
   /// Example: "spotify:album:1Je1IMUlBXcx1Fz0WE7oPT"
   @JsonKey(name: 'context_uri')
   String? contextUri;
-
-  /// Optional. Indicates from where in the context playback should start.
-  /// Only available when [contextUri] corresponds to an album or playlist object
-  @JsonKey(toJson: _offsetToJson)
-  Offset? offset;
-
-  @override
-  Map<String, dynamic> toJson() => _$StartWithContextOptionsToJson(this);
-
-  static Map<String, dynamic>? _offsetToJson(Offset? offset) =>
-      offset?.toJson();
-}
-
-@JsonSerializable(createFactory: false)
-class StartWithUrisOptions extends StartOrResumeOptions {
-
-  StartWithUrisOptions({this.uris, this.positionMs});
 
   /// Optional. A JSON array of the Spotify track URIs to play.
   ///
@@ -160,13 +136,21 @@ class StartWithUrisOptions extends StartOrResumeOptions {
   /// ```
   List<String>? uris;
 
+  /// Optional. Indicates from where in the context playback should start.
+  /// Only available when [contextUri] corresponds to an album or playlist object
+  @JsonKey(toJson: _offsetToJson)
+  Offset? offset;
+
   /// Optional. The position in milliseconds to start playback.
   @JsonKey(name: 'position_ms')
   int? positionMs;
 
-  @override
-  Map<String, dynamic> toJson() => _$StartWithUrisOptionsToJson(this);
+  StartOrResumeOptions(
+      {this.contextUri, this.uris, this.offset, this.positionMs});
 
+  Map<String, dynamic> toJson() => _$StartOrResumeOptionsToJson(this);
+
+  static Map<String, dynamic>? _offsetToJson(Offset? offset) => offset?.toJson();
 }
 
 abstract class Offset {
