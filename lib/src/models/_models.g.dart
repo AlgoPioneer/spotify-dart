@@ -595,17 +595,12 @@ Actions _$ActionsFromJson(Map<String, dynamic> json) => Actions()
   ..togglingShuffle = json['toggling_shuffle'] as bool? ?? false
   ..transferringPlayback = json['transferring_playback'] as bool? ?? false;
 
-Map<String, dynamic> _$StartWithContextOptionsToJson(
-        StartWithContextOptions instance) =>
+Map<String, dynamic> _$StartOrResumeOptionsToJson(
+        StartOrResumeOptions instance) =>
     <String, dynamic>{
       'context_uri': instance.contextUri,
-      'offset': StartWithContextOptions._offsetToJson(instance.offset),
-    };
-
-Map<String, dynamic> _$StartWithUrisOptionsToJson(
-        StartWithUrisOptions instance) =>
-    <String, dynamic>{
       'uris': instance.uris,
+      'offset': StartOrResumeOptions._offsetToJson(instance.offset),
       'position_ms': instance.positionMs,
     };
 

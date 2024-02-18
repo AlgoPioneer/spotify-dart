@@ -12,9 +12,6 @@ class SpotifyApiMock extends SpotifyApiBase {
 
   set mockHttpErrors(Iterator<MockHttpError> errors) =>
       (client as MockClient)._mockHttpErrors = errors;
-  
-  set interceptor(Function(String method, String url, Map<String, String>? headers, [String? body])? interceptor) => 
-      (client as MockClient).interceptFunction = interceptor;
 }
 
 class MockClient implements oauth2.Client {
@@ -23,14 +20,6 @@ class MockClient implements oauth2.Client {
     identifier = credentials.clientId;
     secret = credentials.clientSecret;
     _mockHttpErrors = mockHttpErrors;
-  }
-
-  Function(String method, String url, Map<String, String>? headers, [String? body])? interceptFunction;  
-
-  void _intercept(String method, String url, Map<String, String>? headers, [String? body]) {
-    if (interceptFunction != null) {
-      interceptFunction!(method, url, headers, body);
-    }
   }
 
   @override
@@ -74,7 +63,6 @@ class MockClient implements oauth2.Client {
 
   @override
   Future<http.Response> get(url, {Map<String, String>? headers}) async {
-    _intercept('GET', url.toString(), headers);
     final err = _getMockError();
     if (err != null) {
       return createErrorResponse(err);
@@ -83,9 +71,8 @@ class MockClient implements oauth2.Client {
   }
 
   @override
-  Future<http.Response> head(url, {Map<String, String>? headers}) async {
-    _intercept('HEAD', url.toString(), headers);
-    return createSuccessResponse();
+  Future<http.Response> head(url, {Map<String, String>? headers}) {
+    throw 'Not implemented';
   }
 
   @override
@@ -97,7 +84,6 @@ class MockClient implements oauth2.Client {
   @override
   Future<http.Response> post(url,
       {Map<String, String>? headers, body, Encoding? encoding}) async {
-    _intercept('POST', url.toString(), headers, body.toString());
     final err = _getMockError();
     if (err != null) {
       return createErrorResponse(err);
@@ -107,9 +93,8 @@ class MockClient implements oauth2.Client {
 
   @override
   Future<http.Response> put(url,
-      {Map<String, String>? headers, body, Encoding? encoding}) async {
-        _intercept('PUT', url.toString(), headers, body.toString());
-    return createSuccessResponse(_readPath(url));
+      {Map<String, String>? headers, body, Encoding? encoding}) {
+    throw 'Not implemented';
   }
 
   @override
@@ -141,7 +126,7 @@ class MockClient implements oauth2.Client {
     throw 'Not implemented';
   }
 
-  http.Response createSuccessResponse([String body = ""]) {
+  http.Response createSuccessResponse(String body) {
     /// necessary due to using Latin-1 encoding per default.
     /// https://stackoverflow.com/questions/52990816/dart-json-encodedata-can-not-accept-other-language
     return http.Response(body, 200, headers: {
