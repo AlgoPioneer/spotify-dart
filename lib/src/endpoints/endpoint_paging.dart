@@ -1,11 +1,11 @@
 // Copyright (c) 2017, 2018, hayribakici, chances. All rights reserved. Use of this source code
 // is governed by a BSD-style license that can be found in the LICENSE file.
 
-part of '../../spotify.dart';
+part of spotify;
 
 /// Base class of all endpoints using pagination
 abstract class EndpointPaging extends EndpointBase {
-  EndpointPaging(super.api);
+  EndpointPaging(SpotifyApiBase api) : super(api);
 
   Pages<T> _getPages<T>(String path, ParserFunction<T> pageItemParser,
           [String? pageKey, ParserFunction<Object>? pageContainerParser]) =>
@@ -63,7 +63,9 @@ abstract class BasePage<T> {
 
 /// A page that uses an offset to get to the next page.
 class Page<T> extends BasePage<T> {
-  Page(Paging<T> super._paging, super.pageItemParser, [super.pageContainer]);
+  Page(Paging<T> _paging, ParserFunction<T> pageItemParser,
+      [Object? pageContainer])
+      : super(_paging, pageItemParser, pageContainer);
 
   @override
   bool get isLast {
@@ -83,8 +85,9 @@ class Page<T> extends BasePage<T> {
 
 /// A page that uses a cursor to get to the next page
 class CursorPage<T> extends BasePage<T> {
-  CursorPage(CursorPaging<T> super._paging, super.pageItemParser,
-      [super.pageContainer]);
+  CursorPage(CursorPaging<T> _paging, ParserFunction<T> pageItemParser,
+      [Object? pageContainer])
+      : super(_paging, pageItemParser, pageContainer);
 
   @override
   dynamic get _next => (_paging as CursorPaging<T>).cursors?.after ?? '';
@@ -199,7 +202,7 @@ abstract class SinglePages<T, V extends BasePage<T>> extends _Pages
       firstPage.then(handlePageAndGetNext);
     }, onCancel: () {
       _cancelled = true;
-      return;
+      return Future.value(true);
     }, onResume: () {
       _bufferedPages.forEach(stream.add);
       if (_bufferedPages.last.isLast) {
@@ -213,8 +216,9 @@ abstract class SinglePages<T, V extends BasePage<T>> extends _Pages
 
 /// Handles retrieval of a page through an offset
 class Pages<T> extends SinglePages<T, Page<T>> with OffsetStrategy<Page<T>> {
-  Pages(super.api, super.path, super.pageParser,
-      [super.pageKey, super.pageContainerMapper]);
+  Pages(SpotifyApiBase api, String path, ParserFunction<T> pageParser,
+      [String? pageKey, ParserFunction<Object>? pageContainerMapper])
+      : super(api, path, pageParser, pageKey, pageContainerMapper);
 
   Pages.fromPaging(
       SpotifyApiBase api, Paging<T> paging, ParserFunction<T> pageParser,
@@ -246,8 +250,9 @@ class Pages<T> extends SinglePages<T, Page<T>> with OffsetStrategy<Page<T>> {
 /// Handles retrieval of a page through a cursor
 class CursorPages<T> extends SinglePages<T, CursorPage<T>>
     with CursorStrategy<CursorPage<T>> {
-  CursorPages(super.api, super.path, super.pageParser,
-      [super.pageKey, super.pageContainerMapper]);
+  CursorPages(SpotifyApiBase api, String path, ParserFunction<T> pageParser,
+      [String? pageKey, ParserFunction<Object>? pageContainerMapper])
+      : super(api, path, pageParser, pageKey, pageContainerMapper);
 
   CursorPages.fromCursorPaging(
       SpotifyApiBase api, CursorPaging<T> paging, ParserFunction<T> pageParser,
@@ -301,7 +306,7 @@ class BundledPages extends _Pages with OffsetStrategy<List<Page<dynamic>>> {
     _pageMappers.forEach((key, value) {
       if (map[key] != null) {
         var paging = Paging.fromJson(map[key]);
-        Page page;
+        var page;
         if (_pageContainerParser == null) {
           page = Page(paging, value);
         } else {

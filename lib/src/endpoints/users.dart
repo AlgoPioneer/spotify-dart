@@ -1,13 +1,14 @@
 // Copyright (c) 2017, chances. All rights reserved. Use of this source code
 // is governed by a BSD-style license that can be found in the LICENSE file.
 
-part of '../../spotify.dart';
+part of spotify;
 
 class Users extends EndpointPaging {
+
   @override
   String get _path => 'v1/users';
 
-  Users(super.api);
+  Users(SpotifyApiBase api) : super(api);
 
   Future<UserPublic> get(String userId) async {
     var jsonString = await _api._get('$_path/$userId');

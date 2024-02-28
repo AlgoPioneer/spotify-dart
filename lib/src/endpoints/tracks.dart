@@ -1,7 +1,7 @@
 // Copyright (c) 2017, rinukkusu. All rights reserved. Use of this source code
 // is governed by a BSD-style license that can be found in the LICENSE file.
 
-part of '../../spotify.dart';
+part of spotify;
 
 /// Endpoint of tracks `v1/tracks`
 class Tracks extends EndpointBase {
@@ -47,7 +47,7 @@ class TracksMe extends EndpointPaging {
   @override
   String get _path => 'v1/me/tracks';
 
-  TracksMe(super.api);
+  TracksMe(SpotifyApiBase api) : super(api);
 
   Pages<TrackSaved> get saved {
     return _getPages(_path, (json) => TrackSaved.fromJson(json));

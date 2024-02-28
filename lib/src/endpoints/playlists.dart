@@ -1,14 +1,14 @@
 // Copyright (c) 2017, chances. All rights reserved. Use of this source code
 // is governed by a BSD-style license that can be found in the LICENSE file.
 
-part of '../../spotify.dart';
+part of spotify;
 
 /// Endpoint of playlists
 class Playlists extends EndpointPaging {
   @override
   String get _path => 'v1/browse';
 
-  Playlists(super.api);
+  Playlists(SpotifyApiBase api) : super(api);
 
   Future<Playlist> get(String playlistId) async {
     return Playlist.fromJson(

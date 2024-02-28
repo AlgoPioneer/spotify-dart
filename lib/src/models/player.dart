@@ -1,7 +1,7 @@
 // Copyright (c) 2018, chances. All rights reserved. Use of this source code
 // is governed by a BSD-style license that can be found in the LICENSE file.
 
-part of '_models.dart';
+part of spotify.models;
 
 /// Json representation of the playback state
 @JsonSerializable(createToJson: false)
@@ -123,6 +123,7 @@ abstract class StartOrResumeOptions extends Object {
 
 @JsonSerializable(createFactory: false)
 class StartWithContextOptions extends StartOrResumeOptions {
+
   StartWithContextOptions({this.contextUri, this.offset});
 
   /// Optional. Spotify URI of the context to play. Valid contexts are albums,
@@ -145,6 +146,7 @@ class StartWithContextOptions extends StartOrResumeOptions {
 
 @JsonSerializable(createFactory: false)
 class StartWithUrisOptions extends StartOrResumeOptions {
+
   StartWithUrisOptions({this.uris, this.positionMs});
 
   /// Optional. A JSON array of the Spotify track URIs to play.
@@ -164,6 +166,7 @@ class StartWithUrisOptions extends StartOrResumeOptions {
 
   @override
   Map<String, dynamic> toJson() => _$StartWithUrisOptionsToJson(this);
+
 }
 
 abstract class Offset {

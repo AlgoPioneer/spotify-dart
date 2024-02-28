@@ -1,8 +1,6 @@
 // Copyright (c) 2017, 2020 rinukkusu, hayribakici. All rights reserved. Use of this source code
 // is governed by a BSD-style license that can be found in the LICENSE file.
 
-// ignore_for_file: deprecated_member_use_from_same_package
-
 import 'dart:io';
 import 'dart:convert';
 import 'package:spotify/spotify.dart';
@@ -32,9 +30,7 @@ void main() async {
 
   print('\nArtists:');
   var artists = await spotify.artists.list(['0OdUWJ0sBjDrqHygGUXeCF']);
-  for (var x in artists) {
-    print(x.name);
-  }
+  artists.forEach((x) => print(x.name));
 
   print('\nAlbum:');
   var album = await spotify.albums.get('2Hog1V8mdTWKhCYqI5paph');
@@ -42,38 +38,35 @@ void main() async {
 
   print('\nAlbum Tracks:');
   var tracks = await spotify.albums.getTracks(album.id!).all();
-  for (var track in tracks) {
+  tracks.forEach((track) {
     print(track.name);
-  }
+  });
 
   print('\nNew Releases');
   var newReleases = await spotify.browse.getNewReleases().first();
-  for (var album in newReleases.items!) {
-    print(album.name);
-  }
+  newReleases.items!.forEach((album) => print(album.name));
 
   print('\nFeatured Playlist:');
   var featuredPlaylists = await spotify.playlists.featured.all();
-  for (var playlist in featuredPlaylists) {
+  featuredPlaylists.forEach((playlist) {
     print(playlist.name);
-  }
+  });
 
   print('\nUser\'s playlists:');
   var usersPlaylists =
       await spotify.playlists.getUsersPlaylists('superinteressante').all();
-  for (var playlist in usersPlaylists) {
+  usersPlaylists.forEach((playlist) {
     print(playlist.name);
-  }
+  });
 
-  print("\nSearching for 'Metallica':");
+  print("\nSearching for \'Metallica\':");
   var search = await spotify.search.get('metallica').first(2);
 
-  for (var pages in search) {
+  search.forEach((pages) {
     if (pages.items == null) {
       print('Empty items');
     }
-
-    for (var item in pages.items!) {
+    pages.items!.forEach((item) {
       if (item is PlaylistSimple) {
         print('Playlist: \n'
             'id: ${item.id}\n'
@@ -130,8 +123,8 @@ void main() async {
             'releaseDatePrecision: ${item.releaseDatePrecision}\n'
             '-------------------------------');
       }
-    }
-  }
+    });
+  });
 
   var relatedArtists =
       await spotify.artists.relatedArtists('0OdUWJ0sBjDrqHygGUXeCF');
