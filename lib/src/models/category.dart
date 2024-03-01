@@ -1,4 +1,4 @@
-part of '_models.dart';
+part of spotify.models;
 
 /// Json representation of a category
 @JsonSerializable(createToJson: false)

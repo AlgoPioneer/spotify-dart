@@ -1,14 +1,14 @@
 // Copyright (c) 2017, rinukkusu. All rights reserved. Use of this source code
 // is governed by a BSD-style license that can be found in the LICENSE file.
 
-part of '../../spotify.dart';
+part of spotify;
 
 /// Endpoint for albums `v1/albums`
 class Albums extends EndpointPaging {
   @override
   String get _path => 'v1/albums';
 
-  Albums(super.api);
+  Albums(SpotifyApiBase api) : super(api);
 
   /// Retrieves an album with its [albumId]
   Future<Album> get(String albumId) async {

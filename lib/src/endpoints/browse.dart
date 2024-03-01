@@ -1,8 +1,8 @@
-part of '../../spotify.dart';
+part of spotify;
 
 /// Endpoint of browse `v1/browse`
 class Browse extends EndpointPaging {
-  Browse(super.api);
+  Browse(SpotifyApiBase api) : super(api);
 
   @override
   String get _path => 'v1/browse';

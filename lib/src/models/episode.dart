@@ -1,7 +1,7 @@
 // Copyright (c) 2017, rinukkusu. All rights reserved. Use of this source code
 // is governed by a BSD-style license that can be found in the LICENSE file.
 
-part of '_models.dart';
+part of spotify.models;
 
 /// Json representation of an episode
 @JsonSerializable(createToJson: false)
@@ -80,6 +80,7 @@ class Episode extends Object {
 /// Json representation of an episode with information about its show
 @JsonSerializable(createToJson: false)
 class EpisodeFull extends Episode {
+
   EpisodeFull();
 
   Show? show;

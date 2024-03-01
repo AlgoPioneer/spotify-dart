@@ -1,7 +1,7 @@
 // Copyright (c) 2021, grabajuice. All rights reserved. Use of this source code
 // is governed by a BSD-style license that can be found in the LICENSE file.
 
-part of '_models.dart';
+part of spotify.models;
 
 /// JSON representation of a track's analysis information
 @JsonSerializable(createToJson: false)

@@ -1,14 +1,14 @@
 // Copyright (c) 2018 hayribakici, ebarnsli. All rights reserved. Use of this source code
 // is governed by a BSD-style license that can be found in the LICENSE file.
 
-part of '../../spotify.dart';
+part of spotify;
 
 /// Endpoint of the search `v1/search`
 class Search extends EndpointPaging {
   @override
   String get _path => 'v1/search';
 
-  Search(super.api);
+  Search(SpotifyApiBase api) : super(api);
 
   /// Get Spotify Catalog information about albums, artists, playlists,
   /// tracks, shows or episodes that match a keyword string.
