@@ -40,10 +40,8 @@ class SpotifyApi extends SpotifyApiBase {
 
   static oauth2.AuthorizationCodeGrant authorizationCodeGrant(
       SpotifyApiCredentials credentials,
-      {String? codeVerifier,
-      Function(SpotifyApiCredentials)? onCredentialsRefreshed}) {
-    return SpotifyApiBase.authorizationCodeGrant(credentials, http.Client(),
-        codeVerifier: codeVerifier,
-        onCredentialsRefreshed: onCredentialsRefreshed);
+      {Function(SpotifyApiCredentials)? onCredentialsRefreshed}) {
+    return SpotifyApiBase.authorizationCodeGrant(
+        credentials, http.Client(), onCredentialsRefreshed);
   }
 }
